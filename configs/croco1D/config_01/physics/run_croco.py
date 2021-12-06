@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io
 import sys
-sys.path.append('/home/osboxes/2101_postdoc/aquacosm1D/croco_1D/scm_oce/')
+sys.path.append('/home/osboxes/2101_postdoc/aquacosm1D/configs/croco1D/scm_oce/')
 from scm_oce import scm_oce
 from scipy.io import netcdf
 from scipy.interpolate import interp1d
