@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../../../aquacosm1D_lib')
+sys.path.insert(0, '../../../../aquacosm1D_lib')
 from aquacosm1D_reactions   import set_up_reaction, NoReactions, BioShading_onlyC, Sverdrup, Sverdrup_incl_K
 from aquacosm1D_watercolumn import water_column, water_column_netcdf
 from eulerian1D_diffusion import set_up_eulerian_diffusion

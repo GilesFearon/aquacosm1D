@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../../../aquacosm1D_lib')
+sys.path.insert(0, '../../../../aquacosm1D_lib')
 from aquacosm1D import *
 from netCDF4 import Dataset
 from scipy.interpolate import interp1d
