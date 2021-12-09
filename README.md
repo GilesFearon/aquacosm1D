@@ -7,7 +7,7 @@ the C code into a shared library, first. On a linux box, with the gcc
 compiler, this is as easy as issuing the following command in the
 `aquacosm1D_lib` folder:
 
-gcc -std=c99 -pedantic -Wall -O3 aqc1D_diffusion.c -shared -lm -o aqc1D_diffusion.so
+gcc -std=c99 -pedantic -Wall -O3 -fPIC aqc1D_diffusion.c -shared -lm -o aqc1D_diffusion.so
 
 On other platforms (Winzzozz, Mac), I have no idea what to do. But the
 C code strictly adheres to the c99 standard, and it is linked to
