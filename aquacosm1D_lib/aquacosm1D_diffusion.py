@@ -7,7 +7,6 @@ import os
 #D  = ctypes.cdll.LoadLibrary("/home/franz/Desktop/Water_column/aquacosm1D_8/aqc1D_diffusion.so")
 #D  = ctypes.cdll.LoadLibrary("/home/osboxes/2101_postdoc/aquacosm1D/aquacosm1D_lib/aqc1D_diffusion.so")
 dir_lib = os.path.dirname(os.path.abspath(__file__))
-print(dir_lib)
 D  = ctypes.cdll.LoadLibrary(dir_lib+"/aqc1D_diffusion.so")
 
 #------------------------------------------------------------
