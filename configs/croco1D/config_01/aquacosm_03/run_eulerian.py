@@ -15,7 +15,7 @@ ion()
 # seed(1234567) moving below to reset seed for each run
 
 #------------------------------------------------------------
-dt        = 5. # time step in seconds
+dt        = 1. # time step in seconds
 Ndays     = 21 #length of the simulation
 Nloops    = int(24*3600  *  Ndays  / dt)
 Nstore    = int(0.5*3600 / dt) #store the particles every Nshow time steps
