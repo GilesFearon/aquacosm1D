@@ -25,7 +25,7 @@ mlds = [10] #[10, 25]
 Qswmaxs = [250] #[0, 250, 800]    
 
 # aquacosm settings to loop through for sensitivity tests
-ps = [2.e-4,2.e-8] #[1.e-3, 1.e-4, 1.e-5, 1.e-6, 1.e-7, 0.]
+ps = [0.]
 
 for amplitude in amplitudes:
     for mean_tau in mean_taus:
@@ -79,7 +79,7 @@ for amplitude in amplitudes:
                     c_ini=chl_ini/React.Chl_C  
                     Particles[:, 2] = c_ini
                     
-                    fname_out='aquacosm_p'+"{0:1.0e}".format(Diffuse.p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+"_amp"+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt1.nc'
+                    fname_out='aquacosm_p'+"{0:1.0e}".format(Diffuse.p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+"_amp"+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt'+str(dt)+'.nc'
                     print('working on: ', fname_out)
                     
                     Pstore    = []   #list that stores the particles every Nstore time steps
