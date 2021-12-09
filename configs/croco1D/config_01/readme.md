@@ -6,3 +6,4 @@ aquacosm_01 - running for 21 days, chl ini = 1 in surface layer, tests with NoRe
 
 aquacosm_02 - as per 01, tests with Bioshading_onlyC
 
+aquacosm_03 - as per 02, sensitivity tests to time-step
