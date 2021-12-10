@@ -12,8 +12,8 @@ import xarray as xr
 ndays = 100
 calendar = np.linspace(0,ndays,num=ndays*48+1)*24.*3600. # in seconds.
 
-mlds = [10,20,50]
-kappas = [0.00001,0.0001,0.001,0.01,0.1]
+mlds = [10,20,50,100]
+kappas = [0.00001,0.0001,0.001,0.01]
 
 for mld in mlds:
     for kappa in kappas:
@@ -23,7 +23,7 @@ for mld in mlds:
         z_r = 0.5*(z_w[1:]+z_w[0:-1])
         
         Akt_store    = np.zeros((len(calendar),len(z_w))) + kappa
-        srflx_store = np.zeros((len(calendar)))
+        srflx_store = np.zeros((len(calendar)))+250.
         
         # write a netcdf in the same format at the NEMO netcdf file which the aquacosm model is hard coded to ingest
 
