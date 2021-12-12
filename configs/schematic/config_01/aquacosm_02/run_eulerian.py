@@ -15,7 +15,7 @@ ion()
 # seed(1234567) moving below to reset seed for each run
 
 #------------------------------------------------------------
-dt        = 5. # time step in seconds
+dt        = 10. # time step in seconds
 Ndays     = 21 #length of the simulation
 Nloops    = int(24*3600  *  Ndays  / dt)
 Nstore    = int(0.5*3600 / dt) #store the particles every Nshow time steps
@@ -43,11 +43,11 @@ for mld in mlds:
         # BioShading_onlyC
         React = set_up_reaction(wc, dt, BioShading_onlyC,
                                 LightDecay=5.,
-                                MaxPhotoRate = 1., 
+                                MaxPhotoRate = 2., 
                                 BasalMetabolism = 0.16,
                                 Chl_C = 0.017,
-                                CrowdingMortality = 0.5,
-                                Chl_light_abs = 0.)
+                                CrowdingMortality = 0.1,
+                                Chl_light_abs = 0.01)
                 
         # create the eulerian Tracers array in the same format as the aquacosm Particles array so we can 
         # use the same reactions library as used in the aquacosms

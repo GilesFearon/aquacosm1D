@@ -9,7 +9,7 @@ from pathlib import Path
 # seed(1234567) moving below to reset seed for each run
 
 #------------------------------------------------------------
-dt        = 5. # time step in seconds
+dt        = 1. # time step in seconds
 Ndays     = 21 #length of the simulation
 Nloops    = int(24*3600  *  Ndays  / dt)
 Nstore    = int(0.5*3600 / dt) #store the particles every Nshow time steps
@@ -19,11 +19,11 @@ Nscalars  = 1    #number of scalars carried by each particle
 
 # physical inputs to loop through for sensitivity tests
 # (corresponding to CROCO 1D runs)
-mlds = [20, 50] #[20,50]
-kappas = [0.001, 0.0001] #[0.0001,0.001,0.01] 
+mlds = [50] #[20,50]
+kappas = [0.0001] #[0.0001,0.001,0.01] 
 
 # aquacosm settings to loop through for sensitivity tests
-ps = [1e-3,1e-7]
+ps = [2e-8]
 
 for mld in mlds:
     Npts = mld*4  #scale number of particles with depth
@@ -50,10 +50,10 @@ for mld in mlds:
             # BioShading_onlyC
             React = set_up_reaction(wc, dt, BioShading_onlyC,
                                 LightDecay=5.,
-                                MaxPhotoRate = 1., 
+                                MaxPhotoRate = 1.5, 
                                 BasalMetabolism = 0.16,
                                 Chl_C = 0.017,
-                                CrowdingMortality = 0.5,
+                                CrowdingMortality = 1.,
                                 Chl_light_abs = 0.)
                     
             Particles = create_particles(Npts, Nscalars, wc)

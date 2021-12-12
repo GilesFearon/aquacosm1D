@@ -15,7 +15,7 @@ ion()
 # seed(1234567) moving below to keep constant for all runs
 
 #------------------------------------------------------------
-dt        = 5. # time step in seconds
+dt        = 10. # time step in seconds
 Ndays     = 21 #length of the simulation
 Nloops    = int(24*3600  *  Ndays  / dt)
 Nstore    = int(0.5*3600 / dt) #store the particles every Nshow time steps
@@ -24,7 +24,7 @@ Nscalars  = 1    #number of scalars carried by each particle
 
 # physical inputs to loop through for sensitivity tests
 mlds = [20, 50] #[20,50]
-kappas = [0.001, 0.0001] #[0.0001,0.001,0.01]  
+kappas = [0.01,0.001, 0.0001] #[0.0001,0.001,0.01]  
 
 for mld in mlds:
     for kappa in kappas: 
@@ -49,18 +49,18 @@ for mld in mlds:
         # React = set_up_reaction(wc, dt, NoReactions)
         # React.Chl_C = 0.017 # just adding this here to be consistent with what we write out with BioShading_onlyC
         #
-        React = set_up_reaction(wc, dt, Sverdrup, 
-                                LightDecay = 5.,
-                                BasePhotoRate = 1.,
-                                RespirationRate = 0.1)
-        React.Chl_C = 1. # Not applicable. Just adding this here for compatibility with what we write out with BioShading_onlyC
+        # React = set_up_reaction(wc, dt, Sverdrup, 
+        #                         LightDecay = 5.,
+        #                         BasePhotoRate = 1.,
+        #                         RespirationRate = 0.1)
+        # React.Chl_C = 1. # Not applicable. Just adding this here for compatibility with what we write out with BioShading_onlyC
         
         # React = set_up_reaction(wc, dt, Sverdrup_incl_K, 
-        #                             LightDecay = 5.,
-        #                             BasePhotoRate = 1.,
-        #                             RespirationRate = 0.1,
-        #                             CarryingCapacity = 20)
-        # React.Chl_C = 1. # Not applicable. Just adding this here for compatibility with what we write out with BioShading_onlyC
+                                    LightDecay = 5.,
+                                    BasePhotoRate = 1.,
+                                    RespirationRate = 0.1,
+                                    CarryingCapacity = 20)
+        React.Chl_C = 1. # Not applicable. Just adding this here for compatibility with what we write out with BioShading_onlyC
             
         # Here's where we initialise the chlorophyll       
         # create the eulerian tracer array in the same format as the aquacosms so we can 
@@ -73,7 +73,7 @@ for mld in mlds:
         Tracers[:,1] = Diffuse.zc
         Tracers[:,2] += 1
         
-        fname_out='eulerian_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+"_mld"+str(mld)+"_kappa"+str(kappa)+".nc"
+        fname_out='eulerian_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+"_mld"+str(mld)+"_kappa"+str(kappa)+'_dt'+str(dt)+".nc"
         print('working on: ', fname_out)
         
         Cstore = []

@@ -34,10 +34,10 @@ figure(figsize=(10,5))
 ax = [subplot(1,1,i+1) for i in range(1)]   
 
 # max values to plot
-max_chl=25
+max_chl=100
 
 # plot the eulerian data
-eulfile='eulerian_r1.0_c0.0_a0.5_l5.0_mld50_kappa0.0001_dt5.0.nc'
+eulfile='eulerian_r1.75_c0.0_a1.0_l5.0_mld50_kappa0.0001_dt10.0.nc'
 time_eul,z_eul,chl_eul,chl_eul_avg=get_eul_output(eulfile)
 
 Nt_eul,Nz_eul=shape(chl_eul)
