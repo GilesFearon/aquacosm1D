@@ -49,7 +49,7 @@ def do_the_plot(mld,kappa,React):
     t=10 #days    
             
     # plot the eulerian data
-    eulfile='eulerian_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt10.0.nc'
+    eulfile='eulerian_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt10.0.nc'
     time_eul,z_eul,chl_eul,chl_eul_avg=get_eul_output(eulfile)
     # repeat time along the z dimension for plotting
     Nt_eul,Nz_eul=shape(chl_eul)
@@ -59,17 +59,15 @@ def do_the_plot(mld,kappa,React):
     tindx_eul = (np.abs(time_eul[:,0] - t)).argmin()
     #
     # max values to plot
-    max_chl = 20
+    max_chl = 15
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
-    if React.dt == 5.:
-        ps=[1e-3,1e-7]
-    else:
-        # ps=[2e-3,2e-7]
-        ps=[2e-4,2e-8]
+    # ps=[1e-3,1e-7]
+    # ps=[2e-3,2e-7]
+    ps=[2e-4,2e-8]
     for ii,p in enumerate(ps): 
-        aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
+        aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,_ = get_aqc_output(aqcfile)
         Nt_aqc,Nz_aqc=shape(chl_aqc)
         # repeat time along the z dimension for plotting
@@ -80,13 +78,11 @@ def do_the_plot(mld,kappa,React):
     # ts=gcf().add_axes((0.4, -0.8, 0.45, 0.6))
     ts=gcf().add_axes((0., 0.55-0.55*3, 0.8, 0.5))
     ts.plot(time_eul[:,0],chl_eul_avg, 'k', linewidth=4, label='Eulerian')
-    if React.dt == 5.:
-        ps=[1e-3,1e-7]
-    else:
-        # ps=[2e-3,2e-7]
-        ps=[2e-4,2e-8]
+    # ps=[1e-3,1e-7]
+    # ps=[2e-3,2e-7]
+    ps=[2e-4,2e-8]
     for ii,p in enumerate(ps):
-        aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
+        aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,chl_aqc_avg = get_aqc_output(aqcfile)
         ts.plot(time_aqc,chl_aqc_avg, linewidth=2, label='Aquacosms, p = '+"{0:1.0e}".format(p))
     ts.set_ylabel('average Chl (mg m$^{-3}$)', fontsize=15)
@@ -102,20 +98,21 @@ def do_the_plot(mld,kappa,React):
     ts.legend(fontsize=12, loc="upper left")
     
     # # show the input surface radiation
-    sx=gcf().add_axes((0.0, 1.1, 0.8, 0.4))
-    sx.plot(time_physics,s_flux)
-    sx.set_xticklabels([])
-    sx.set_ylabel('$Q_s$ (W m$^{-2}$)', fontsize=15,)
-    sx.set_xlim(0,21)
-    sx.set_xticks(range(0,22))
-    sx.set_ylim(0,800)
+    # (NOT APPLICABLE WITH SVERDRUP)
+    # sx=gcf().add_axes((0.0, 1.1, 0.8, 0.4))
+    # sx.plot(time_physics,s_flux)
+    # sx.set_xticklabels([])
+    # sx.set_ylabel('$Q_s$ (W m$^{-2}$)', fontsize=15,)
+    # sx.set_xlim(0,21)
+    # sx.set_xticks(range(0,22))
+    # sx.set_ylim(0,800)
     
-    plt.savefig('plot_eul_aqc_2_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.jpg',dpi=500,bbox_inches = 'tight')
+    plt.savefig('plot_eul_aqc_2_'+type(React.current_model).__name__+'_r'+str(React.BasePhotoRate*(60.*60.*24.))+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.jpg',dpi=500,bbox_inches = 'tight')
     
 if __name__ == "__main__":
 
-    mlds = [50]  
-    kappas = [0.0001,0.001,0.01] #[0.0001,0.001,0.01]  
+    mlds = [20,50]   
+    kappas = [0.0001,0.001]  #[0.0001,0.001,0.01]  
     
     for kappa in kappas:
         for mld in mlds:
@@ -125,13 +122,12 @@ if __name__ == "__main__":
             
             dt = 1.        
             wc = water_column_netcdf(DatasetName=crocofile, max_depth=mld)
-            React = set_up_reaction(wc, dt, BioShading_onlyC,
-                                    LightDecay=10.,
-                                    MaxPhotoRate = 2.0, 
-                                    BasalMetabolism = 0.04,
-                                    Chl_C = 0.017,
-                                    CrowdingMortality = 1.0,
-                                    Chl_light_abs = 0.01)
+            
+            React = set_up_reaction(wc, dt, Sverdrup_incl_K, 
+                                    LightDecay = 5.,
+                                    BasePhotoRate = 1.,
+                                    RespirationRate = 0.1,
+                                    CarryingCapacity = 20)
             
             do_the_plot(mld,kappa,React)
 

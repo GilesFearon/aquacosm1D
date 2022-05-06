@@ -22,10 +22,10 @@ Nscalars  = 1    #number of scalars carried by each particle
 amplitudes = [0.03]  #[0, 0.01, 0.02, 0.03, 0.04]
 mean_taus = [0] #[0, 0.05]
 mlds = [10] #[10, 25]
-Qswmaxs = [250] #[0, 250, 800]    
+Qswmaxs = [0] #[0, 250, 800]    
 
 # aquacosm settings to loop through for sensitivity tests
-ps = [1.e-3, 1.e-5, 1.e-6, 1.e-7, 1.e-9]
+ps = [0, 1.e-4, 1.e-5, 1.e-6] #[1.e-3, 1.e-5, 1.e-6, 1.e-7, 1.e-9]
 
 for amplitude in amplitudes:
     for mean_tau in mean_taus:

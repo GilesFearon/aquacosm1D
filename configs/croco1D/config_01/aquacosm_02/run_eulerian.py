@@ -47,12 +47,12 @@ for amplitude in amplitudes:
                 # Reactions
                 # BioShading_onlyC
                 React = set_up_reaction(wc, dt, BioShading_onlyC,
-                                        LightDecay=23.,
-                                        MaxPhotoRate = 2., 
+                                        LightDecay=5.,
+                                        MaxPhotoRate = 0.5, 
                                         BasalMetabolism = 0.16,
                                         Chl_C = 0.017,
                                         CrowdingMortality = 0.25,
-                                        Chl_light_abs = 0.01)
+                                        Chl_light_abs = 0.)
                 #
                 
                 # Here's where we initialise the chlorophyll

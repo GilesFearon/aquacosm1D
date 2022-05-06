@@ -71,9 +71,9 @@ def do_the_plot(mld,amplitude,Qswmax,reaction):
     # base = 5 #nearest multiple of 'base'
     # max_chl = base * round(np.max(chl_eul)/base)
     if reaction=='Sverdrup':
-        max_chl = 40
+        max_chl = 15#40
     else:
-        max_chl = 12#15#35#500
+        max_chl = 8#12#35#500
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
@@ -140,10 +140,10 @@ def do_the_plot(mld,amplitude,Qswmax,reaction):
     
 if __name__ == "__main__":
     
-    amplitudes = [0.01] #[0, 0.01, 0.02, 0.03, 0.04]
+    amplitudes = [0.03] #[0, 0.01, 0.02, 0.03, 0.04]
     mlds = [10] #[10, 25]   
-    Qswmaxs = [250] #[0, 250, 800]  
-    reactions = ['Sverdrup_incl_K'] # ['Sverdrup','Sverdrup_incl_K']
+    Qswmaxs = [0] #[0, 250, 800]  
+    reactions = ['Sverdrup'] # ['Sverdrup','Sverdrup_incl_K']
         
     for amplitude in amplitudes:
         for mld in mlds:

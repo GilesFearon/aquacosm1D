@@ -59,7 +59,7 @@ t=5.75 #days
 max_chl=20
 
 # plot the eulerian data
-eulfile='eulerian_r2.0_c0.0_a1.0_l5.0_mean0.05_amp0.03_mld10_flx800.nc'
+eulfile='eulerian_r0.5_c0.0_a0.1_l5.0_mean0_amp0.03_mld10_flx250.nc'
 time_eul,z_eul,chl_eul,chl_eul_avg=get_eul_output(eulfile)
 tindx_eul = (np.abs(time_eul[:,0] - t)).argmin()
 plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)

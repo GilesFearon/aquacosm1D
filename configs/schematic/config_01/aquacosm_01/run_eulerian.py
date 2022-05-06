@@ -55,7 +55,7 @@ for mld in mlds:
         #                         RespirationRate = 0.1)
         # React.Chl_C = 1. # Not applicable. Just adding this here for compatibility with what we write out with BioShading_onlyC
         
-        # React = set_up_reaction(wc, dt, Sverdrup_incl_K, 
+        React = set_up_reaction(wc, dt, Sverdrup_incl_K, 
                                     LightDecay = 5.,
                                     BasePhotoRate = 1.,
                                     RespirationRate = 0.1,

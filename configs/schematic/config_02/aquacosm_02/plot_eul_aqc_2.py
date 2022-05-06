@@ -59,7 +59,7 @@ def do_the_plot(mld,kappa,React):
     tindx_eul = (np.abs(time_eul[:,0] - t)).argmin()
     #
     # max values to plot
-    max_chl = 20
+    max_chl = 50
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
@@ -68,6 +68,7 @@ def do_the_plot(mld,kappa,React):
     else:
         # ps=[2e-3,2e-7]
         ps=[2e-4,2e-8]
+        
     for ii,p in enumerate(ps): 
         aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,_ = get_aqc_output(aqcfile)
@@ -85,6 +86,7 @@ def do_the_plot(mld,kappa,React):
     else:
         # ps=[2e-3,2e-7]
         ps=[2e-4,2e-8]
+        
     for ii,p in enumerate(ps):
         aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mld'+str(mld)+'_kappa'+str(kappa)+'_dt'+str(React.dt)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,chl_aqc_avg = get_aqc_output(aqcfile)
@@ -114,8 +116,8 @@ def do_the_plot(mld,kappa,React):
     
 if __name__ == "__main__":
 
-    mlds = [50]  
-    kappas = [0.0001,0.001,0.01] #[0.0001,0.001,0.01]  
+    mlds = [20,50]  
+    kappas = [0.0001,0.001,0.01]  #[0.0001,0.001,0.01]  
     
     for kappa in kappas:
         for mld in mlds:
@@ -123,7 +125,7 @@ if __name__ == "__main__":
             crocofilename="mld"+str(mld)+"_kappa"+str(kappa)+".nc"
             crocofile=crocodir+crocofilename
             
-            dt = 1.        
+            dt = 5.        
             wc = water_column_netcdf(DatasetName=crocofile, max_depth=mld)
             React = set_up_reaction(wc, dt, BioShading_onlyC,
                                     LightDecay=10.,

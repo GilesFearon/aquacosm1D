@@ -20,9 +20,9 @@ Nscalars  = 1    #number of scalars carried by each particle
 # physical inputs to loop through for sensitivity tests
 # (corresponding to CROCO 1D runs)
 amplitudes = [0.03] # [0.02, 0.03, 0.04] #[0, 0.01, 0.02, 0.03, 0.04]
-mean_taus = [0.05] #[0, 0.05]
+mean_taus = [0] #[0, 0.05]
 mlds = [10] #[10, 25]
-Qswmaxs = [800] #[0, 250, 800]    
+Qswmaxs = [250] #[0, 250, 800]    
 
 # aquacosm settings to loop through for sensitivity tests
 ps = [1.e-3, 1.e-4, 1.e-5, 1.e-6, 1.e-7, 0.]
@@ -52,12 +52,12 @@ for amplitude in amplitudes:
                     # Reactions
                     # BioShading_onlyC
                     React = set_up_reaction(wc, dt, BioShading_onlyC,
-                                        LightDecay=23.,
-                                        MaxPhotoRate = 2., 
+                                        LightDecay=5.,
+                                        MaxPhotoRate = 1., 
                                         BasalMetabolism = 0.16,
                                         Chl_C = 0.017,
-                                        CrowdingMortality = 0.25,
-                                        Chl_light_abs = 0.01)
+                                        CrowdingMortality = 0.5,
+                                        Chl_light_abs = 0.)
                             
                     Particles = create_particles(Npts, Nscalars, wc)
                     # Here's where we initialise the chlorophyll value for the particles

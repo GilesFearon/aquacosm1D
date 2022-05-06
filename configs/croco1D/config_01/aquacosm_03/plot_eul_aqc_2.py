@@ -56,7 +56,7 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     t=10 #days    
             
     # plot the eulerian data
-    eulfile='eulerian_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt'+str(React.dt)+'.nc'
+    eulfile='eulerian_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt5.0.nc'
     time_eul,z_eul,chl_eul=get_eul_output(eulfile)
     # interpolate z_therm onto eulerian time axis (just in case different)
     z_therm_eul = np.squeeze(interp1d(concatenate(([time_eul[0]], time_croco[:,0])),concatenate(([z_therm_croco[0]], z_therm_croco)),kind='linear')([time_eul]))
@@ -73,8 +73,8 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
-    ps=[1e-3,1e-7]
-    # ps=[2e-4,2e-8]
+    # ps=[1e-3,1e-7]
+    ps=[4e-5,4e-9]
     for ii,p in enumerate(ps): 
         aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt'+str(React.dt)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,_ = get_aqc_output(aqcfile)
@@ -114,8 +114,8 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     # ts=gcf().add_axes((0.4, -0.8, 0.45, 0.6))
     ts=gcf().add_axes((0., 0.55-0.55*3, 0.8, 0.5))
     ts.plot(time_eul[:,0],chl_eul_avg, 'k', linewidth=4, label='Eulerian')
-    ps=[1e-3,1e-7]
-    # ps=[2e-4,2e-8]
+    # ps=[1e-3,1e-7]
+    ps=[4e-5,4e-9]
     # ps=[1e-3,1e-4,1e-5,1e-6,1e-7,0]
     for ii,p in enumerate(ps):
         aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt'+str(React.dt)+'.nc'
@@ -143,7 +143,7 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     sx.set_xticks(range(0,22))
     sx.set_ylim(0,800)
     
-    plt.savefig('plot_eul_aqc_2_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'.jpg',dpi=500,bbox_inches = 'tight')
+    plt.savefig('plot_eul_aqc_2_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'_dt'+str(React.dt)+'.jpg',dpi=500,bbox_inches = 'tight')
     
 if __name__ == "__main__":
     
@@ -160,7 +160,7 @@ if __name__ == "__main__":
                     crocofilename="mean"+str(mean_tau)+"_mld"+str(mld)+"_amp"+str(amplitude)+"_flx"+str(Qswmax)+"_lat30_T016_hmax50.nc"
                     crocofile=crocodir+crocofilename
                     
-                    dt = 5.        
+                    dt = 0.2        
                     wc = water_column_netcdf(DatasetName=crocofile, max_depth=50)
                     React = set_up_reaction(wc, dt, BioShading_onlyC,
                                             LightDecay=5.,

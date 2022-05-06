@@ -69,7 +69,7 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     tindx_eul = (np.abs(time_eul[:,0] - t)).argmin()
     #
     # max values to plot
-    max_chl = 40
+    max_chl = 12
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
@@ -113,8 +113,8 @@ def do_the_plot(mld,amplitude,mean_tau,Qswmax,React):
     # ts=gcf().add_axes((0.4, -0.8, 0.45, 0.6))
     ts=gcf().add_axes((0., 0.55-0.55*3, 0.8, 0.5))
     ts.plot(time_eul[:,0],chl_eul_avg, 'k', linewidth=4, label='Eulerian')
-    ps=[1e-3,1e-7]
-    # ps=[1e-3,1e-4,1e-5,1e-6,1e-7,0]
+    # ps=[1e-3,1e-7]
+    ps=[1e-3,1e-4,1e-5,1e-6,1e-7,0]
     for ii,p in enumerate(ps):
         aqcfile='aquacosm_p'+"{0:1.0e}".format(p)+'_r'+str(React.MaxPhotoRate*(60.*60.*24.))+'_c'+str(React.Chl_light_abs)+'_a'+str(React.CrowdingMortality*(60.*60.*24.))+'_l'+str(React.LightDecay)+'_mean'+str(mean_tau)+'_amp'+str(amplitude)+"_mld"+str(mld)+"_flx"+str(Qswmax)+'.nc'
         time_aqc,z_aqc,z_rank,chl_aqc,_ = get_aqc_output(aqcfile)
@@ -162,10 +162,10 @@ if __name__ == "__main__":
                     wc = water_column_netcdf(DatasetName=crocofile, max_depth=50)
                     React = set_up_reaction(wc, dt, BioShading_onlyC,
                                             LightDecay=5.,
-                                            MaxPhotoRate = 2., 
+                                            MaxPhotoRate = 1., 
                                             BasalMetabolism = 0.16,
                                             Chl_C = 0.017,
-                                            CrowdingMortality = 1.,
+                                            CrowdingMortality = 0.5,
                                             Chl_light_abs = 0.)
                     
                     do_the_plot(mld,amplitude,mean_tau,Qswmax,React)

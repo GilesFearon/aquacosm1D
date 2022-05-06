@@ -24,10 +24,10 @@ Nscalars  = 1    #number of scalars carried by each particle
 
 # physical inputs to loop through for sensitivity tests
 # (corresponding to CROCO 1D runs)
-amplitudes = [0.01] #[0, 0.01, 0.02, 0.03, 0.04]
+amplitudes = [0.03] #[0, 0.01, 0.02, 0.03, 0.04]
 mean_taus = [0] #[0, 0.05]
 mlds = [10] #[10, 25]
-Qswmaxs = [250] #250 isthe special case of constant heat flux, otherwise it is diurnal peaks at Qswmax   
+Qswmaxs = [0] #250 isthe special case of constant heat flux, otherwise it is diurnal peaks at Qswmax   
 
 for amplitude in amplitudes:
     for mean_tau in mean_taus:

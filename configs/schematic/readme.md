@@ -9,4 +9,4 @@ configuration descriptions
 ---------------------------
 `config_01` - using constant diffusivities and surface radiation 
 
-`config_02` - using diurnally varying diffusivities and surface radiation 
+`config_02` - using constant diffusivities and diurnal surface radiation 
