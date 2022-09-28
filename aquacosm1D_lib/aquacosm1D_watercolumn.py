@@ -83,13 +83,13 @@ last_time : (s) if specified, an error will be raised if current time>last_time
         self._init_swr(short_wave_radiation)
     
     def _init_depth(self, max_depth):
-        if isinstance(max_depth, (int, long, float)):
+        if isinstance(max_depth, (int, float)):
             self.max_depth = float(max_depth)
         else:
             raise ValueError("'max_depth' must be a number")
 
     def _init_kappa(self, kappa):
-        if (isinstance(kappa, (int, long, float))
+        if (isinstance(kappa, (int, float))
             and float(kappa) > 0): 
             self._kappa_value = float(kappa)
             self.diffusivity = self._constant_diffusivity
@@ -110,7 +110,7 @@ last_time : (s) if specified, an error will be raised if current time>last_time
             raise ValueError("'kappa' must be either a number larger than zero, or a function")
         
     def _init_swr(self, short_wave_radiation):
-        if (isinstance(short_wave_radiation, (int, long, float))
+        if (isinstance(short_wave_radiation, (int, float))
             and float(short_wave_radiation) >= 0):
             self._swr_value = float(short_wave_radiation)
             self.surface_swr = self._constant_swr
