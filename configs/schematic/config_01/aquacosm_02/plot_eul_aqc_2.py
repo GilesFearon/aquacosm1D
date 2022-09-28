@@ -59,7 +59,7 @@ def do_the_plot(mld,kappa,React):
     tindx_eul = (np.abs(time_eul[:,0] - t)).argmin()
     #
     # max values to plot
-    max_chl = 20
+    max_chl = 15
     plot_C(ax,0,time_eul,z_eul,chl_eul,'Eulerian',t,max_chl)
     
     # plot the aquacosm data
@@ -114,8 +114,8 @@ def do_the_plot(mld,kappa,React):
     
 if __name__ == "__main__":
 
-    mlds = [50]  
-    kappas = [0.0001,0.001,0.01] #[0.0001,0.001,0.01]  
+    mlds = [20]  
+    kappas = [0.0001] #[0.0001,0.001,0.01]  
     
     for kappa in kappas:
         for mld in mlds:
@@ -123,15 +123,15 @@ if __name__ == "__main__":
             crocofilename="mld"+str(mld)+"_kappa"+str(kappa)+".nc"
             crocofile=crocodir+crocofilename
             
-            dt = 1.        
+            dt = 5.        
             wc = water_column_netcdf(DatasetName=crocofile, max_depth=mld)
             React = set_up_reaction(wc, dt, BioShading_onlyC,
-                                    LightDecay=10.,
-                                    MaxPhotoRate = 2.0, 
-                                    BasalMetabolism = 0.04,
-                                    Chl_C = 0.017,
-                                    CrowdingMortality = 1.0,
-                                    Chl_light_abs = 0.01)
+                                LightDecay=23.,
+                                MaxPhotoRate = 1., 
+                                BasalMetabolism = 0.1,
+                                Chl_C = 0.017,
+                                CrowdingMortality = 0.65,
+                                Chl_light_abs = 0.01)
             
             do_the_plot(mld,kappa,React)
 

@@ -138,48 +138,45 @@ def w2rho(time_croco,zw,z,kappa_w):
         kappa_r[t,:]=interp1d(zw,kappa_w[t,:],kind='linear')([z])
     return kappa_r
 
-def get_r_reactions(crocofile,time,z,zw,C,z_therm,wc,React):
+def get_aqc_diags(diagfile):
+    # get the aquacosm diagnostics output
+    data_aqc=Dataset(diagfile)
+    time_aqc=data_aqc.variables['time'][:] # time in days
+    z_diag=data_aqc.variables['depth_diag'][:]
+    z_aqc=data_aqc.variables['depth_aqc'][:,:]
+    rank_aqc=data_aqc.variables['rank_aqc'][:]
+    r=data_aqc.variables['r'][:,:]
+    stdev_r=data_aqc.variables['stdev_r'][:,:]
+    stdev_r_norm=data_aqc.variables['stdev_r_norm'][:,:]
+    stdev_chl=data_aqc.variables['stdev_chl'][:,:]
+    stdev_chl_norm=data_aqc.variables['stdev_chl_norm'][:,:]
+    data_aqc.close()
+    return time_aqc,z_diag,z_aqc,rank_aqc,r,stdev_r,stdev_r_norm,stdev_chl,stdev_chl_norm
+
+def get_aqc_reactions(time,z_aqc,z_rank,chl_aqc,React):
     # get the reaction rates normalised by the concentration of the active tracer
     # and averaged over the euphotic layer   
         
     # take the chl/C conversion into account, as input C represents chlorophyl
     # but BioShading_onlyC needs Carbon input
-    C=C/React.Chl_C 
+    C=chl_aqc/React.Chl_C 
     
-    # set up the aquacosm array in the correct format to be given to the reactions library
+    # set up an aquacosm array in the correct format to be given to the reactions library
     Nt,Npts=shape(C) 
     Nscalars=1
-    Tracers      = Aquacosm1D_Particles(
+    Particles      = Aquacosm1D_Particles(
             zeros((Npts, Nscalars+2), dtype='float64')
             )
-    Tracers[:,0] = np.arange(Npts)
-    Tracers[:,1] = z
+    Particles[:,0] = z_rank
     
     # compute the reaction rates at each time-step, normalised by the concentration of the activate tracer
     RRates_normalised=np.zeros_like(C)
     z_euphotic=np.zeros_like(time)
     for ii in range(len(time)):
         React.wc.set_current_time(time[ii])
-        Tracers[:,2]=C[ii,:]
-        RRates=React.current_model(Tracers, React.wc, time[ii])
-        RRates_normalised[ii,:]=RRates[:,0]/Tracers[:,2]
+        Particles[:,1]=z_aqc[ii,:]
+        Particles[:,2]=C[ii,:]
+        RRates=React.current_model(Particles, React.wc, time[ii])
+        RRates_normalised[ii,:]=RRates[:,0]/Particles[:,2]
         
-        # compute the depth of the euphotic layer defined as the depth where light
-        # radiation is 1% of the surface strength
-        # this should take the cummulative chlorophyl into account, but for now 
-        # I'm leaeving it out so that we return z_euphotic = z_therm
-        # light_decay = exp(-z/React.LightDecay) + effect of chl
-        # indx_euphotic=np.argmax(light_decay<0.01)
-        # z_euphotic[ii]=z[np.argmax(light_decay<0.01)]
-        # if z_euphotic[ii]>z_therm[ii]: # limit the euphotic depth to the thermocline
-        #     z_euphotic[ii]=z_therm[ii]
-        z_euphotic[ii]=z_therm[ii]
-        
-    # compute the average over the euphotic layer
-    r = get_Cs_eulerian(time,z,zw,RRates_normalised,z_euphotic)
-    
-    # handle when reactions go negative
-    r[r<0] = 0
-    
-        
-    return r, z_euphotic
+    return RRates_normalised

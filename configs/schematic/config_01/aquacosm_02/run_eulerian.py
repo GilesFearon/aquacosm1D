@@ -23,7 +23,7 @@ Nconsole  = int(6*3600 / dt) # frequency of writing to the console
 Nscalars  = 1    #number of scalars carried by each particle
 
 # physical inputs to loop through for sensitivity tests
-mlds = [50] #[20,50]
+mlds = [20] #[20,50]
 kappas = [0.0001] #[0.0001,0.001,0.01]  
 
 for mld in mlds:
@@ -42,11 +42,11 @@ for mld in mlds:
         # Reactions
         # BioShading_onlyC
         React = set_up_reaction(wc, dt, BioShading_onlyC,
-                                LightDecay=5.,
-                                MaxPhotoRate = 2., 
-                                BasalMetabolism = 0.16,
+                                LightDecay=23.,
+                                MaxPhotoRate = 1., 
+                                BasalMetabolism = 0.1,
                                 Chl_C = 0.017,
-                                CrowdingMortality = 0.1,
+                                CrowdingMortality = 0.65,
                                 Chl_light_abs = 0.01)
                 
         # create the eulerian Tracers array in the same format as the aquacosm Particles array so we can 
