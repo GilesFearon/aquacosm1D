@@ -9,3 +9,8 @@ aquacosm_02 - as per 01, tests with Bioshading_onlyC
 aquacosm_03 - as per 02, sensitivity tests to time-step
 
 aquacosm_04 - as per 03, CrowdingHalfSaturation = 125
+
+aquacosm_05 - tests on multiple populations
+
+aquacosm_06 - as per 04, setting chl ini = 0.001 in the subsurface (was 10^-20)
+              used to plot summary of R depth and chl over the runs

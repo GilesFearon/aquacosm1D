@@ -45,8 +45,7 @@ def get_r(React):
     
 def do_the_plot(Chl, depth, r):
     
-    #
-    
+    # get bin edges to plot
     depth=np.append(depth-0.5,depth[-1]+0.5)
     # Chl=np.append(Chl-0.5,Chl[-1]+0.5)
     Chl=np.append(Chl/3,Chl[-1]*3)
@@ -64,7 +63,7 @@ def do_the_plot(Chl, depth, r):
 
     # ax.set_xlim(0.003,300)
     ax.set_xscale('log')
-    #Let's get rid of the scientific notation on the y-axis
+    #Let's get rid of the scientific notation on the x-axis
     fmt = mpl.ticker.StrMethodFormatter("{x:g}")
     ax.xaxis.set_major_formatter(fmt)
     ax.minorticks_off()
